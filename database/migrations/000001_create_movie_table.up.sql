@@ -1,0 +1,11 @@
+-- +migrate Up
+CREATE TABLE IF NOT EXISTS movies (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    genre VARCHAR(255),
+    year INT CHECK (year >= 1900 AND year <= EXTRACT(YEAR FROM CURRENT_DATE)),
+    rating FLOAT CHECK (rating >= 0 AND rating <= 5),
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP
+);

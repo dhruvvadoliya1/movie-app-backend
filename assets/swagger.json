@@ -1,0 +1,1073 @@
+{
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "http"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "title": "Golang API.",
+    "version": "0.0.1-alpha"
+  },
+  "host": "localhost:3000",
+  "basePath": "/api/v1",
+  "paths": {
+    "/companies": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Companies"
+        ],
+        "summary": "Get a Company List.",
+        "operationId": "RequestGetCompanyList",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "Page",
+            "name": "page",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "Limit",
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "x-go-name": "Name",
+            "name": "name",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/ResponseGetCompanyList"
+          },
+          "404": {
+            "$ref": "#/responses/GenericResFailNotFound"
+          },
+          "500": {
+            "$ref": "#/responses/GenericResError"
+          }
+        }
+      }
+    },
+    "/companies/{companyId}": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Companies"
+        ],
+        "summary": "Get a Company Details.",
+        "operationId": "RequestGetCompany",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "CompanyId",
+            "name": "companyId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/ResponseGetCompany"
+          },
+          "404": {
+            "$ref": "#/responses/GenericResFailNotFound"
+          },
+          "500": {
+            "$ref": "#/responses/GenericResError"
+          }
+        }
+      }
+    },
+    "/healthz": {
+      "get": {
+        "description": "Overall health check",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Healthcheck"
+        ],
+        "summary": "Overall health check",
+        "operationId": "overallHealthCheck",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/GenericResOk"
+          },
+          "500": {
+            "$ref": "#/responses/GenericResError"
+          }
+        }
+      }
+    },
+    "/healthz/db": {
+      "get": {
+        "description": "Database health check",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Healthcheck"
+        ],
+        "summary": "Database health check",
+        "operationId": "dbHealthCheck",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/GenericResOk"
+          },
+          "500": {
+            "$ref": "#/responses/GenericResError"
+          }
+        }
+      }
+    },
+    "/jobs": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Jobs"
+        ],
+        "summary": "Get a Job List.",
+        "operationId": "RequestGetJobList",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "uint64",
+            "x-go-name": "Page",
+            "name": "page",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "uint64",
+            "x-go-name": "Limit",
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "MinSalary",
+            "name": "min_salary",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "MaxSalary",
+            "name": "max_salary",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "201": {
+            "$ref": "#/responses/ResponseGetJobList"
+          },
+          "400": {
+            "$ref": "#/responses/GenericResFailBadRequest"
+          },
+          "500": {
+            "$ref": "#/responses/GenericResError"
+          }
+        }
+      },
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Jobs"
+        ],
+        "summary": "Create a Job.",
+        "operationId": "RequestCreateJob",
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "closed_time": {
+                  "type": "string",
+                  "format": "date-time",
+                  "x-go-name": "ClosedTime"
+                },
+                "company_id": {
+                  "type": "integer",
+                  "format": "int64",
+                  "x-go-name": "CompanyId"
+                },
+                "description": {
+                  "type": "string",
+                  "x-go-name": "Description"
+                },
+                "expiry_time": {
+                  "type": "string",
+                  "format": "date-time",
+                  "x-go-name": "ExpiryTime"
+                },
+                "location": {
+                  "type": "string",
+                  "x-go-name": "Location"
+                },
+                "max_salary": {
+                  "type": "integer",
+                  "format": "int64",
+                  "x-go-name": "MaxSalary"
+                },
+                "min_salary": {
+                  "type": "integer",
+                  "format": "int64",
+                  "x-go-name": "MinSalary"
+                },
+                "original_listed_time": {
+                  "type": "string",
+                  "format": "date-time",
+                  "x-go-name": "OriginalListedTime"
+                },
+                "pay_period": {
+                  "type": "string",
+                  "x-go-name": "PayPeriod"
+                },
+                "title": {
+                  "type": "string",
+                  "x-go-name": "Title"
+                },
+                "views": {
+                  "type": "integer",
+                  "format": "int64",
+                  "x-go-name": "Views"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "$ref": "#/responses/ResponseCreateJob"
+          },
+          "400": {
+            "$ref": "#/responses/GenericResFailBadRequest"
+          },
+          "500": {
+            "$ref": "#/responses/GenericResError"
+          }
+        }
+      }
+    },
+    "/jobs/{jobId}": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Jobs"
+        ],
+        "summary": "Get a Job Details.",
+        "operationId": "RequestGetJob",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "JobId",
+            "name": "jobId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "$ref": "#/responses/ResponseGetJob"
+          },
+          "400": {
+            "$ref": "#/responses/GenericResFailBadRequest"
+          },
+          "500": {
+            "$ref": "#/responses/GenericResError"
+          }
+        }
+      },
+      "put": {
+        "consumes": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Jobs"
+        ],
+        "summary": "Update a Job.",
+        "operationId": "RequestUpdateJob",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "JobId",
+            "name": "jobId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "closed_time": {
+                  "type": "string",
+                  "format": "date-time",
+                  "x-go-name": "ClosedTime"
+                },
+                "company_id": {
+                  "type": "integer",
+                  "format": "int64",
+                  "x-go-name": "CompanyId"
+                },
+                "description": {
+                  "type": "string",
+                  "x-go-name": "Description"
+                },
+                "expiry_time": {
+                  "type": "string",
+                  "format": "date-time",
+                  "x-go-name": "ExpiryTime"
+                },
+                "location": {
+                  "type": "string",
+                  "x-go-name": "Location"
+                },
+                "max_salary": {
+                  "type": "integer",
+                  "format": "int64",
+                  "x-go-name": "MaxSalary"
+                },
+                "min_salary": {
+                  "type": "integer",
+                  "format": "int64",
+                  "x-go-name": "MinSalary"
+                },
+                "original_listed_time": {
+                  "type": "string",
+                  "format": "date-time",
+                  "x-go-name": "OriginalListedTime"
+                },
+                "pay_period": {
+                  "type": "string",
+                  "x-go-name": "PayPeriod"
+                },
+                "title": {
+                  "type": "string",
+                  "x-go-name": "Title"
+                },
+                "views": {
+                  "type": "integer",
+                  "format": "int64",
+                  "x-go-name": "Views"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/ResponseUpdateJob"
+          },
+          "400": {
+            "$ref": "#/responses/GenericResFailBadRequest"
+          },
+          "500": {
+            "$ref": "#/responses/GenericResError"
+          }
+        }
+      },
+      "delete": {
+        "consumes": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Jobs"
+        ],
+        "summary": "Delete Job Details.",
+        "operationId": "RequestDeleteJob",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "JobId",
+            "name": "jobId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/ResponseDeleteJob"
+          },
+          "400": {
+            "$ref": "#/responses/GenericResFailBadRequest"
+          },
+          "500": {
+            "$ref": "#/responses/GenericResError"
+          }
+        }
+      }
+    },
+    "/kratos/auth": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Authenticate user with kratos session id.",
+        "operationId": "none",
+        "responses": {
+          "400": {
+            "$ref": "#/responses/GenericResFailBadRequest"
+          },
+          "500": {
+            "$ref": "#/responses/GenericResError"
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Authenticate user with email and password.",
+        "operationId": "RequestAuthnUser",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/ResponseAuthnUser"
+          },
+          "400": {
+            "$ref": "#/responses/GenericResFailBadRequest"
+          },
+          "401": {
+            "$ref": "#/responses/ResForbiddenRequest"
+          },
+          "500": {
+            "$ref": "#/responses/GenericResError"
+          }
+        }
+      }
+    },
+    "/metrics": {
+      "get": {
+        "description": "Prometheus metrics endpoint",
+        "produces": [
+          "text/plain"
+        ],
+        "tags": [
+          "Metrics"
+        ],
+        "summary": "Prometheus metrics endpoint",
+        "operationId": "ReqMetrics"
+      }
+    },
+    "/users": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Users"
+        ],
+        "summary": "Register a user.",
+        "operationId": "RequestCreateUser",
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "x-go-name": "Email"
+                },
+                "first_name": {
+                  "type": "string",
+                  "x-go-name": "FirstName"
+                },
+                "last_name": {
+                  "type": "string",
+                  "x-go-name": "LastName"
+                },
+                "password": {
+                  "type": "string",
+                  "x-go-name": "Password"
+                },
+                "roles": {
+                  "type": "string",
+                  "x-go-name": "Roles"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "$ref": "#/responses/ResponseCreateUser"
+          },
+          "400": {
+            "$ref": "#/responses/GenericResFailBadRequest"
+          },
+          "500": {
+            "$ref": "#/responses/GenericResError"
+          }
+        }
+      }
+    },
+    "/users/{userId}": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get a user.",
+        "operationId": "RequestGetUser",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "UserId",
+            "name": "userId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/ResponseGetUser"
+          },
+          "400": {
+            "$ref": "#/responses/GenericResFailNotFound"
+          },
+          "500": {
+            "$ref": "#/responses/GenericResError"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Meta": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Count"
+        }
+      },
+      "x-go-package": "github.com/dhruvvadoliya1/movie-app-backend/pkg/structs"
+    },
+    "ResCompany": {
+      "type": "object",
+      "properties": {
+        "address": {
+          "type": "string",
+          "x-go-name": "Address"
+        },
+        "city": {
+          "type": "string",
+          "x-go-name": "City"
+        },
+        "company_name": {
+          "type": "string",
+          "x-go-name": "CompanyName"
+        },
+        "country": {
+          "type": "string",
+          "x-go-name": "Country"
+        },
+        "description": {
+          "type": "string",
+          "x-go-name": "Description"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "CompanyId"
+        },
+        "industry": {
+          "type": "string",
+          "x-go-name": "Industry"
+        },
+        "url": {
+          "type": "string",
+          "x-go-name": "Url"
+        },
+        "zip_code": {
+          "type": "string",
+          "x-go-name": "ZipCode"
+        }
+      },
+      "x-go-package": "github.com/dhruvvadoliya1/movie-app-backend/pkg/structs"
+    },
+    "ResDeleteJob": {
+      "type": "object",
+      "properties": {
+        "jobId": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "JobId"
+        },
+        "status": {
+          "type": "string",
+          "x-go-name": "Status"
+        }
+      },
+      "x-go-package": "github.com/dhruvvadoliya1/movie-app-backend/pkg/structs"
+    },
+    "ResGetCompanyList": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "properties": {
+            "company": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ResCompany"
+              },
+              "x-go-name": "Company"
+            },
+            "meta": {
+              "$ref": "#/definitions/Meta"
+            }
+          },
+          "x-go-name": "Data"
+        },
+        "status": {
+          "type": "string",
+          "x-go-name": "Status"
+        }
+      },
+      "x-go-package": "github.com/dhruvvadoliya1/movie-app-backend/pkg/structs"
+    },
+    "ResGetJobList": {
+      "type": "object",
+      "properties": {
+        "Data": {
+          "type": "object",
+          "properties": {
+            "jobs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ResJob"
+              },
+              "x-go-name": "Jobs"
+            },
+            "meta": {
+              "$ref": "#/definitions/Meta"
+            }
+          }
+        },
+        "status": {
+          "type": "string",
+          "x-go-name": "Status"
+        }
+      },
+      "x-go-package": "github.com/dhruvvadoliya1/movie-app-backend/pkg/structs"
+    },
+    "ResJob": {
+      "type": "object",
+      "properties": {
+        "closed_time": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "ClosedTime"
+        },
+        "company_id": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "CompanyId"
+        },
+        "company_name": {
+          "type": "string",
+          "x-go-name": "CompanyName"
+        },
+        "description": {
+          "type": "string",
+          "x-go-name": "Description"
+        },
+        "expiry_time": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "ExpiryTime"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "JobId"
+        },
+        "location": {
+          "type": "string",
+          "x-go-name": "Location"
+        },
+        "max_salary": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "MaxSalary"
+        },
+        "min_salary": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "MinSalary"
+        },
+        "original_listed_time": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "OriginalListedTime"
+        },
+        "pay_period": {
+          "type": "string",
+          "x-go-name": "PayPeriod"
+        },
+        "title": {
+          "type": "string",
+          "x-go-name": "Title"
+        },
+        "views": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Views"
+        }
+      },
+      "x-go-package": "github.com/dhruvvadoliya1/movie-app-backend/pkg/structs"
+    }
+  },
+  "responses": {
+    "GenericResError": {
+      "description": "Unexpected error occurred",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "x-go-name": "Data"
+          },
+          "message": {
+            "type": "string",
+            "x-go-name": "Message"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "error"
+            ],
+            "x-go-name": "Status"
+          }
+        }
+      }
+    },
+    "GenericResFailBadRequest": {
+      "description": "Fail due to user invalid input",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "x-go-name": "Data"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "fail"
+            ],
+            "x-go-name": "Status"
+          }
+        }
+      }
+    },
+    "GenericResFailConflict": {
+      "description": "Server understand request but refuse to authorize it",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "x-go-name": "Data"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "fail"
+            ],
+            "x-go-name": "Status"
+          }
+        }
+      }
+    },
+    "GenericResFailNotFound": {
+      "description": "Fail due to resource not exists",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "x-go-name": "Data"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "fail"
+            ],
+            "x-go-name": "Status"
+          }
+        }
+      }
+    },
+    "GenericResFailUnprocessableEntity": {
+      "description": "Fail due to server understand request but unable to process",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "x-go-name": "Data"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "fail"
+            ],
+            "x-go-name": "Status"
+          }
+        }
+      }
+    },
+    "GenericResOk": {
+      "description": "Response is okay",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "success"
+            ],
+            "x-go-name": "Status"
+          }
+        }
+      }
+    },
+    "ResForbiddenRequest": {
+      "description": "Fail due to user invalid input",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "x-go-name": "Data"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "fail"
+            ],
+            "x-go-name": "Status"
+          }
+        }
+      }
+    },
+    "ResponseCreateJob": {
+      "description": "",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/definitions/ResJob"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "success"
+            ],
+            "x-go-name": "Status"
+          }
+        }
+      }
+    },
+    "ResponseCreateUser": {
+      "description": "",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "x-go-name": "Data"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "success"
+            ],
+            "x-go-name": "Status"
+          }
+        }
+      }
+    },
+    "ResponseDeleteJob": {
+      "description": "",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/definitions/ResDeleteJob"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "success"
+            ],
+            "x-go-name": "Status"
+          }
+        }
+      }
+    },
+    "ResponseGetCompany": {
+      "description": "",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/definitions/ResCompany"
+          },
+          "status": {
+            "type": "string",
+            "x-go-name": "Status"
+          }
+        }
+      }
+    },
+    "ResponseGetCompanyList": {
+      "description": "",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/definitions/ResGetCompanyList"
+          },
+          "status": {
+            "type": "string",
+            "x-go-name": "Status"
+          }
+        }
+      }
+    },
+    "ResponseGetJob": {
+      "description": "",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/definitions/ResJob"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "success"
+            ],
+            "x-go-name": "Status"
+          }
+        }
+      }
+    },
+    "ResponseGetJobList": {
+      "description": "",
+      "schema": {
+        "$ref": "#/definitions/ResGetJobList"
+      }
+    },
+    "ResponseUpdateJob": {
+      "description": "",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/definitions/ResJob"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "success"
+            ],
+            "x-go-name": "Status"
+          }
+        }
+      }
+    }
+  }
+}
