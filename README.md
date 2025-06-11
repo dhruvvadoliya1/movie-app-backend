@@ -22,8 +22,8 @@ This is the backend service for the Movie App application. It uses Go, PostgreSQ
 
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
-   cd movie-crud/backend
+   git clone https://github.com/dhruvvadoliya1/movie-app-backend.git
+   cd movie-app-backend
    ```
 
 2. Install Go dependencies:
