@@ -1,5 +1,12 @@
-linters-settings:
-  errcheck:
-    check-blank: true
-  misspell:
-    locale: US
+version: "1"
+
+linters:
+  enable:
+    - errcheck
+    - misspell
+
+# linters-settings:
+#   errcheck:
+#     check-blank: true
+#   misspell:
+#     locale: US

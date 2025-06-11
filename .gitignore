@@ -3,6 +3,7 @@ vendor
 bin
 .run
 resource
+tmp
 
 # Numerous always-ignore extensions
 *.diff

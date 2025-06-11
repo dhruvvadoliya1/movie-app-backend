@@ -157,11 +157,8 @@ func (model *MovieModel) GetByTitle(title string) (Movie, error) {
 	return movie, nil
 }
 
-func (model *MovieModel) getMoviesQuery(param structs.ReqGetMovieList) (query  *goqu.SelectDataset) {
+func (model *MovieModel) getMoviesQuery(param structs.ReqGetMovieList, query *goqu.SelectDataset) (*goqu.SelectDataset) {
 	
-	offset := uint((param.Page - 1) * param.Limit)
-	query = model.db.From(MovieTable).Offset(offset).Limit(uint(param.Limit)).Where(goqu.C("deleted_at").IsNull())
-
 	if param.Title != ""{
 		query = query.Where(
 			goqu.L("LOWER(title) LIKE LOWER(?)", "%"+param.Title+"%"),
@@ -186,8 +183,10 @@ func (model *MovieModel) getMoviesQuery(param structs.ReqGetMovieList) (query  *
 func (model *MovieModel) GetMovies(param structs.ReqGetMovieList) ([]Movie, error) {
 
 	var movies []Movie
-
-	query := model.getMoviesQuery(param)
+	
+	offset := uint((param.Page - 1) * param.Limit)
+	query := model.db.From(MovieTable).Offset(offset).Limit(uint(param.Limit)).Where(goqu.C("deleted_at").IsNull())
+	query = model.getMoviesQuery(param, query)
 
 	if err := query.ScanStructs(&movies); err != nil {
 		return nil, err
@@ -208,7 +207,8 @@ func (model *MovieModel) GetMovieFromChan(param structs.ReqGetMovieList, channel
 
 func (model *MovieModel) GetMovieCount(param structs.ReqGetMovieList) (int64, error) {
 
-	query := model.getMoviesQuery(param)
+	query := model.db.From(MovieTable).Where(goqu.C("deleted_at").IsNull())
+	query = model.getMoviesQuery(param,query)
 
 	count, err := query.Count()
 	if err != nil {
