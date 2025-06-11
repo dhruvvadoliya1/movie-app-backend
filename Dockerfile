@@ -1,5 +1,5 @@
 # syntax = docker/dockerfile:latest
-FROM golang:1.19.1-alpine3.16 AS build
+FROM golang:1.21.1-alpine AS build
 
 ARG GOPATH="/go"
 ARG GOMODCACHE=${GOPATH}/pkg/mod

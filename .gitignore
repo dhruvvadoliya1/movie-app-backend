@@ -39,6 +39,7 @@ nbproject
 .idea
 .tmp
 .env
+.env.docker
 .vscode
 app
 
